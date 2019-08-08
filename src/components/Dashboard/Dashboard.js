@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import './Dashboard.css'
+import Transaction from '../Transaction/Transaction'
 
 
 export default class Dashboard extends Component {
@@ -7,6 +8,7 @@ export default class Dashboard extends Component {
     return (
       <div className='Dashboard'>
         Dashboard
+        <Transaction />
       </div>
     )
   }
