@@ -21,13 +21,25 @@ class Landing extends Component {
       emailInput: email,
       passwordInput: password
     } = this.state
-    axios.post('/auth/register', { username, email, password })
-    .then(res => {
-      this.props.setUser({ username, email })
+    axios
+      .post('/auth/register', { username, email, password })
+      .then(res => {
+        this.props.setUser({ username, email })
+        this.props.history.push('/dashboard')
+      })
+      .catch(err => {
+        alert('Email is already in use.')
+      })
+  }
+  login = () => {
+    const {emailInput: email, passwordInput: password} = this.state
+    axios.post('/auth/login', {email, password}).then(res => {
+      const {username, email} = res.data.user
+      this.props.setUser({username, email})
       this.props.history.push('/dashboard')
     })
     .catch(err => {
-      alert('Email is already in use.')
+      alert('Try again.')
     })
   }
   render() {
@@ -56,7 +68,7 @@ class Landing extends Component {
               placeholder="Password"
             />
             <button onClick={this.registerUser}>Register</button>
-            <button>Login</button>
+            <button onClick={this.login}>Login</button>
           </div>
         </div>
       </div>
